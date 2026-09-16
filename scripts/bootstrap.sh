@@ -46,11 +46,13 @@ sudo tee /etc/iptables/rules.v4 > /dev/null <<'EOF'
 -A INPUT -p icmp -j ACCEPT
 COMMIT
 EOF
-sudo tee /etc/iptables/rules.v6 > /dev/null <<'EOF'
-*filter
-:INPUT DROP [0:0]
-:FORWARD DROP [0:0]
-:OUTPUT DROP [0:0]
-COMMIT
-EOF
 sudo netfilter-persistent restart
+
+sudo tee /etc/sysctl.d/10-ipv6-disable.conf > /dev/null <<'EOF'
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.ens18.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+EOF
+sudo chmod 644 /etc/sysctl.d/10-ipv6-disable.conf
+sudo sysctl -p /etc/sysctl.d/10-ipv6-disable.conf
