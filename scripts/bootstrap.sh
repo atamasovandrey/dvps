@@ -13,37 +13,45 @@ PubkeyAuthentication yes
 PasswordAuthentication no
 EOF
 
-if $(sudo sshd -t); then
+if sudo sshd -t; then
     sudo systemctl reload sshd.service
 else
     exit 1
 fi
 
 # sudo
-sudo DEBIAN_FRONTEND=noninteractive tee /etc/sudoers.d/dvps > /dev/null <<'EOF'
+sudo tee /tmp/dvps > /dev/null <<'EOF'
 Defaults timestamp_timeout=60
 EOF
-sudo chmod 440 /etc/sudoers.d/dvps
-sudo visudo -c
+sudo chmod 440 /tmp/dvps
+
+if sudo visudo -c /tmp/dvps; then
+    mv /tmp/dvps /etc/sudoers.d/dvps
+else
+    exit 1
 
 #timezone
 sudo timedatectl set-timezone Asia/Krasnoyarsk
 
 #firewall
-sudo apt-get install iptables-persistent -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install iptables-persistent -y
 sudo tee /etc/iptables/rules.v4 > /dev/null <<'EOF'
 *filter
-:INPUT DROP [35:5750]
+:INPUT DROP [0:0]
 :FORWARD DROP [0:0]
-:OUTPUT ACCEPT [16452:5385350]
+:OUTPUT ACCEPT [0:0]
 -A INPUT -i lo -j ACCEPT
 -A INPUT -m conntrack --ctstate INVALID -j DROP
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
 -A INPUT -p icmp -j ACCEPT
--P INPUT DROP
--P FORWARD DROP
--P OUTPUT ACCEPT
+COMMIT
+EOF
+sudo tee /etc/iptables/rules.v6 > /dev/null <<'EOF'
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
 COMMIT
 EOF
 sudo netfilter-persistent restart
