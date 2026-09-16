@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-# export DEBIAN_FRONTEND=noninteractive
-
 sudo apt-get update
 
 # sshd_config
@@ -20,15 +18,16 @@ else
 fi
 
 # sudo
-sudo tee /tmp/dvps > /dev/null <<'EOF'
+sudo tee /etc/dvps > /dev/null <<'EOF'
 Defaults timestamp_timeout=60
 EOF
-sudo chmod 440 /tmp/dvps
+sudo chmod 440 /etc/dvps
 
-if sudo visudo -c /tmp/dvps; then
-    mv /tmp/dvps /etc/sudoers.d/dvps
+if sudo visudo -c /etc/dvps; then
+    sudo mv /etc/dvps /etc/sudoers.d/dvps
 else
     exit 1
+fi
 
 #timezone
 sudo timedatectl set-timezone Asia/Krasnoyarsk
