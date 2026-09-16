@@ -2,9 +2,13 @@
 
 set -euo pipefail
 
+export DEBIAN_FRONTEND=noninteractive
+
+sudo apt update
 
 # sshd_config
-sudo sh -c 'echo "PermitRootLogin no\nPubkeyAuthentication yes\nPasswordAuthentication no" > /etc/ssh/sshd_config.d/10-hardering.conf'
+sudo sh -c 'echo "PermitRootLogin no\nPubkeyAuthentication yes\nPasswordAuthentication no" > /etc/ssh/sshd_config.d/10-hardening.conf'
+sudo sshd -t
 sudo systemctl reload sshd.service
 
 # sudo

@@ -15,3 +15,4 @@ Was configured:
 - firewall: iptables (all drop except 22 port and icmp)
 - user: dvps with sudo permissions, can be entered only by the key
 
+known limitation: «script assumes the dvps user already exists; user provisioning is out of scope until the Ansible stage».
