@@ -3,6 +3,7 @@
 set -euo pipefail
 
 sudo apt-get update
+sudo apt-get install iputils-ping
 
 # sshd_config
 sudo tee /etc/ssh/sshd_config.d/10-hardening.conf > /dev/null <<'EOF'
