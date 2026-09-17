@@ -1,8 +1,8 @@
 ## Impact
-Was not worked resolve dns names for about 10 minutes.
+Resolve dns names didn't work for about 10 minutes.
 
 ## Symptoms
-Can't get an answer for curl requests on trying to run 'apt update'. Network is ok. Ping in local and global network responded.
+Didn't got responses for curl requests on trying to run 'apt update'. Network is ok. ping — not available on the host, connectivity was confirmed indirectly
 
 ## Investigation
 1. Check ip address on interface
@@ -10,10 +10,11 @@ Can't get an answer for curl requests on trying to run 'apt update'. Network is 
 3. Try to run apt update
 
 ## Root Cause
-Was modified file /etc/resolve.conf. In the file was dns address '192.0.2.1'. In the result DNS names couldn't be resolved.
+The file file /etc/resolv.conf was modified recently. In the file was dns address '192.0.2.1'. In the result DNS names couldn't be resolved.
 
 ## Resolution
-Revert DNS address as it was. Last dns was found in log systemd-resolved - '192.168.1.1'.
+DNS address was reverted as it was. Last dns was found in log systemd-resolved - '192.168.1.1'. Started the service systemd-resolved.
 
-## Preventation
-Add 'nameserver 192.168.1.1' to the resolve.conf in bootstrap.sh
+## Prevention
+
+TODO
