@@ -17,4 +17,6 @@ DNS address was reverted as it was. Last dns was found in log systemd-resolved -
 
 ## Prevention
 
-TODO
+1. Add monitoring that periodically checks DNS resolution and raises an alert when it fails.
+2. Configuration of the host must be described as code.
+3. All changes must go through the repository and be applied automatically, rather than manually over SSH.
