@@ -19,3 +19,8 @@ known limitation: «script assumes the dvps user already exists; user provisioni
 ipv6 rules set to DROP. Because ipv6 will not be in use.
 
 For install a new node just run bootstrap.sh.
+
+Add string 1
++string 2
+and PLUS string three yo.
+
