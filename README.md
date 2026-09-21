@@ -20,5 +20,5 @@ ipv6 rules set to DROP. Because ipv6 will not be in use.
 
 For install a new node just run bootstrap.sh.
 
-Lab environment: three Ubuntu hosts
+Lab environment: 3 hosts
 
