@@ -20,5 +20,5 @@ ipv6 rules set to DROP. Because ipv6 will not be in use.
 
 For install a new node just run bootstrap.sh.
 
-Lab environment: 3 VMs on Proxmox
+Lab environment: 3 VM hosts working on OS Ubuntu based on Proxmox
 
