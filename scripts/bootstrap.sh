@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "bootstrap is start running at $(date)"
+
 set -euo pipefail
 
 sudo apt-get update
