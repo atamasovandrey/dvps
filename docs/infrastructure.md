@@ -6,3 +6,6 @@ RAM: 2GB
 HDD: 20GB
 
 On this server was configured user 'dvps', ssh access by key, firewall.
+
+TASK 4 STRING
+
