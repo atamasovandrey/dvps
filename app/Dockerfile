@@ -1,13 +1,13 @@
 FROM python:3.12-slim
 
-RUN adduser docker-app01
-
 WORKDIR /app
+
 COPY requirements.txt .
-
-RUN su - root -c 'pip install --no-cache-dir -r requirements.txt'
-
 COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN useradd ucuser
+USER ucuser
 
 EXPOSE 8000
 

@@ -23,5 +23,5 @@ For install a new node just run bootstrap.sh.
 Lab environment: 3 VM hosts working on OS Ubuntu based on Proxmox
 
 We've made an application running on docker engine.
-To build an image you must run "docker build -t docker-app01:v1 app/".
-To run the application run "docker run -d --name docker-app01 -p 127.0.0.1:8000:8000 docker-app01"
+To build an image you must run "docker build -t uptime-checker:v1 app/".
+To run the application run "docker run -d --name uptime-checker -p 127.0.0.1:8000:8000 uptime-checker:v1"
