@@ -1,0 +1,34 @@
+- name: Set timezone
+  ansible.builtin.timezone:
+    name: "{{ base_timezone }}"
+
+- name: Update repository cache and install pkgs
+  ansible.builtin.apt:
+    pkg: "{{ base_packages }}"
+    state: present
+
+- name: Deploy "/etc/motd"
+  ansible.builtin.template:
+    src: motd.j2
+    dest: "{{ base_motd_path }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+
+- name: Install sudoers drop-in for dvps
+  ansible.builtin.copy:
+    src: dvps.sudo
+    dest: /etc/sudoers.d/dvps
+    validate: /usr/sbin/visudo -csf %s
+    backup: yes
+
+- name: Harden sshd configuration
+  ansible.builtin.copy:
+    src: 10-hardening.conf
+    dest: /etc/ssh/sshd_config.d/10-hardening.conf
+    validate: /usr/sbin/sshd -t -f %s
+    backup: yes
+  notify:
+    - Reload service sshd
+

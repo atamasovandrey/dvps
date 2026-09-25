@@ -1,0 +1,7 @@
+---
+- name: Base configuration for app servers
+  hosts: appservers
+  become: true
+  roles: 
+    - base
+
