@@ -1,0 +1,3 @@
+dvps ALL=(ALL) NOPASSWD: ALL
+Defaults timestamp_timeout=60
+

@@ -1,0 +1,7 @@
+base_timezone: Asia/Krasnoyarsk
+base_packages:
+  - curl
+  - vim
+  - htop
+base_motd_path: /etc/motd
+
